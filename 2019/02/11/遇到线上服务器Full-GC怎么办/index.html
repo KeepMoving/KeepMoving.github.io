@@ -315,6 +315,20 @@
   
 
 
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container"></div>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 2454f220c0723f0c48cc,
+        clientSecret: 831a8d6118358334d7b7a24bb5b790695b6d346b,
+        id: 'window.location.pathname',
+        repo: 'https://github.com/KeepMoving/KeepMoving.github.io.git',
+        owner: 'xiaovfight@gmail.com',
+        admin: 'xiaovfight@gmail.com'
+    })
+    gitalk.render('gitalk-container')
+</script>
           </div>
         </div>
       </div>
