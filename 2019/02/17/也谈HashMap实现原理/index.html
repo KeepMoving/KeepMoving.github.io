@@ -11,20 +11,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>记一次线上异常的排查和定位 | 互联网实践者</title>
+  <title>也谈HashMap实现原理 | 互联网实践者</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="某段时间，线上服务不时会爆出dwr数据异常。初步断定是后端接口返回异常所致。 由于当时我们的服务已经接入ELK，所以第一时间登录kibana后台，按照lucene语法搜索（Tag:”study_online”） AND (message:”exception”)，定位到服务器的异常 异常信息(由于当时的异常日志已经被冲掉了，这是我从网上摘录的)：1234567891011121314java.la">
-<meta name="keywords" content="debug">
+  <meta name="description" content="HashMap在互联网应用中是一个老生常谈的话题。从redis等各类缓存到spring内部BeanDefinition的存储，都能看到HashMap的身影。可见hashMap这个数据结构的重要性。 最近也在重看HashMap的结构，记录一下，希望能有一个不一样的启发。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记一次线上异常的排查和定位">
-<meta property="og:url" content="http://yoursite.com/2019/02/09/记一次线上异常的排查和定位/index.html">
+<meta property="og:title" content="也谈HashMap实现原理">
+<meta property="og:url" content="http://yoursite.com/2019/02/17/也谈HashMap实现原理/index.html">
 <meta property="og:site_name" content="互联网实践者">
-<meta property="og:description" content="某段时间，线上服务不时会爆出dwr数据异常。初步断定是后端接口返回异常所致。 由于当时我们的服务已经接入ELK，所以第一时间登录kibana后台，按照lucene语法搜索（Tag:”study_online”） AND (message:”exception”)，定位到服务器的异常 异常信息(由于当时的异常日志已经被冲掉了，这是我从网上摘录的)：1234567891011121314java.la">
+<meta property="og:description" content="HashMap在互联网应用中是一个老生常谈的话题。从redis等各类缓存到spring内部BeanDefinition的存储，都能看到HashMap的身影。可见hashMap这个数据结构的重要性。 最近也在重看HashMap的结构，记录一下，希望能有一个不一样的启发。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-09T15:50:43.191Z">
+<meta property="og:updated_time" content="2019-02-17T06:25:07.548Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记一次线上异常的排查和定位">
-<meta name="twitter:description" content="某段时间，线上服务不时会爆出dwr数据异常。初步断定是后端接口返回异常所致。 由于当时我们的服务已经接入ELK，所以第一时间登录kibana后台，按照lucene语法搜索（Tag:”study_online”） AND (message:”exception”)，定位到服务器的异常 异常信息(由于当时的异常日志已经被冲掉了，这是我从网上摘录的)：1234567891011121314java.la">
+<meta name="twitter:title" content="也谈HashMap实现原理">
+<meta name="twitter:description" content="HashMap在互联网应用中是一个老生常谈的话题。从redis等各类缓存到spring内部BeanDefinition的存储，都能看到HashMap的身影。可见hashMap这个数据结构的重要性。 最近也在重看HashMap的结构，记录一下，希望能有一个不一样的启发。">
   
     <link rel="alternative" href="/atom.xml" title="互联网实践者" type="application/atom+xml">
   
@@ -164,34 +163,29 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-记一次线上异常的排查和定位" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-也谈HashMap实现原理" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      记一次线上异常的排查和定位
+      也谈HashMap实现原理
     </h1>
   
 
         
-        <a href="/2019/02/09/记一次线上异常的排查和定位/" class="archive-article-date">
-  	<time datetime="2019-02-09T12:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-09</time>
+        <a href="/2019/02/17/也谈HashMap实现原理/" class="archive-article-date">
+  	<time datetime="2019-02-17T06:20:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>某段时间，线上服务不时会爆出dwr数据异常。<br>初步断定是后端接口返回异常所致。</p>
-<p>由于当时我们的服务已经接入ELK，所以第一时间登录kibana后台，按照lucene语法搜索<br>（Tag:”study_online”） AND (message:”exception”)，定位到服务器的异常</p>
-<p>异常信息(由于当时的异常日志已经被冲掉了，这是我从网上摘录的)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalStateException: Timed out waiting to add Cmd: 1 Opaque: 1147840 Key: com.stubhub.user.business.entity.UserSession|63C21A07311389A1EC361D834BF46E72 Cas: 0 Exp: 7200 Flags: 1 Data Length: 1748(max wait=10000ms) </span><br><span class="line">at net.spy.memcached.protocol.TCPMemcachedNodeImpl.addOp(TCPMemcachedNodeImpl.java:362) </span><br><span class="line">at net.spy.memcached.MemcachedConnection.addOperation(MemcachedConnection.java:1267) </span><br><span class="line">at com.couchbase.client.CouchbaseConnection.addOperation(CouchbaseConnection.java:277) </span><br><span class="line">at net.spy.memcached.MemcachedConnection.enqueueOperation(MemcachedConnection.java:1185) </span><br><span class="line">at net.spy.memcached.MemcachedClient.asyncStore(MemcachedClient.java:328) </span><br><span class="line">at net.spy.memcached.MemcachedClient.set(MemcachedClient.java:929) </span><br><span class="line">at com.stubhub.common.cache.store.couchbase.CouchbaseStore.put(CouchbaseStore.java:148) </span><br><span class="line">at com.stubhub.common.cache.store.CompositeCacheStore.put(CompositeCacheStore.java:69) </span><br><span class="line">at com.stubhub.common.session.impl.UserSessionCacheManagerImpl.putCrossModuleValue(UserSessionCacheManagerImpl.java:48) </span><br><span class="line">at com.stubhub.user.business.manager.impl.UserSessionCacheMgrImpl.putUserSessionToStore(UserSessionCacheMgrImpl.java:269) </span><br><span class="line">at com.stubhub.user.business.manager.impl.UserSessionCacheMgrImpl.createUserSession(UserSessionCacheMgrImpl.java:806) </span><br><span class="line">at sun.reflect.GeneratedMethodAccessor1305.invoke(Unknown Source) </span><br><span class="line">at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)</span><br></pre></td></tr></table></figure></p>
-<p>从日志中判断是因为memcached超时抛出的异常。<br>首先查看工程的memcached设置，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;memcachedClient&quot; class=&quot;com.xxx.xxx.cache.impl.KeyPrefixSupportedMemcachedClientFactory&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;servers&quot; value=&quot;$&#123;memcached_address_list&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;namespace&quot; value=&quot;study_&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;protocol&quot; value=&quot;BINARY&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;transcoder&quot;&gt;</span><br><span class="line">		&lt;bean class=&quot;net.spy.memcached.transcoders.SerializingTranscoder&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;compressionThreshold&quot; value=&quot;16384&quot; /&gt;</span><br><span class="line">		&lt;/bean&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;maxReconnectDelay&quot; value=&quot;60&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;opTimeout&quot; value=&quot;200&quot;/&gt;</span><br><span class="line">	&lt;property name=&quot;opQueueMaxBlockTime&quot; value=&quot;400&quot;/&gt;</span><br><span class="line">	&lt;property name=&quot;timeoutExceptionThreshold&quot; value=&quot;20&quot;/&gt;</span><br><span class="line">	&lt;property name=&quot;hashAlg&quot;&gt;</span><br><span class="line">		&lt;value type=&quot;net.spy.memcached.DefaultHashAlgorithm&quot;&gt;KETAMA_HASH&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;locatorType&quot;&gt;</span><br><span class="line">           &lt;value type=&quot;net.spy.memcached.ConnectionFactoryBuilder.Locator&quot;&gt;CONSISTENT&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;failureMode&quot;&gt;</span><br><span class="line">           &lt;value type=&quot;net.spy.memcached.FailureMode&quot;&gt;Redistribute&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;useNagleAlgorithm&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
-<p>可以看到超时时间opTimeout设置的是200毫秒，而opQueueMaxBlockTime是400毫秒<br>opTimeout是操作超时时间，opQueueMaxBlockTime是指操作的最大阻塞时间。<br>那究竟是哪个时间超时导致的呢？<br>可以通过下载memcacheClient源码，搜索“Timed out waiting to add”定位到如下源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * (non-Javadoc)</span><br><span class="line"> *</span><br><span class="line"> * @see net.spy.memcached.MemcachedNode#addOp(net.spy.memcached.ops.Operation)</span><br><span class="line"> */</span><br><span class="line">public final void addOp(Operation op) &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    if (!authLatch.await(1, TimeUnit.SECONDS)) &#123;</span><br><span class="line">      op.cancel();</span><br><span class="line">      getLogger().warn(&quot;Operation canceled because authentication &quot;</span><br><span class="line">              + &quot;or reconnection and authentication has &quot;</span><br><span class="line">              + &quot;taken more than one second to complete.&quot;);</span><br><span class="line">      getLogger().debug(&quot;Canceled operation %s&quot;, op.toString());</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (!inputQueue.offer(op, opQueueMaxBlockTime, TimeUnit.MILLISECONDS)) &#123;</span><br><span class="line">      throw new IllegalStateException(&quot;Timed out waiting to add &quot; + op</span><br><span class="line">          + &quot;(max wait=&quot; + opQueueMaxBlockTime + &quot;ms)&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; catch (InterruptedException e) &#123;</span><br><span class="line">    // Restore the interrupted status</span><br><span class="line">    Thread.currentThread().interrupt();</span><br><span class="line">    throw new IllegalStateException(&quot;Interrupted while waiting to add &quot; + op);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>从源码中可以知晓，原因是inputQueue.offer没有正常返回导致的，超过了opQueueMaxBlockTime的时间限制</p>
-<p>知道了原因，下面就开始思考怎么解决吧</p>
-
+        <pre><code>HashMap在互联网应用中是一个老生常谈的话题。从redis等各类缓存到spring内部BeanDefinition的存储，都能看到HashMap的身影。可见hashMap这个数据结构的重要性。
+最近也在重看HashMap的结构，记录一下，希望能有一个不一样的启发。
+</code></pre>
       
 
       
@@ -220,17 +214,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">debug</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -281,7 +264,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/09/记一次线上异常的排查和定位/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/17/也谈HashMap实现原理/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -295,18 +278,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/02/11/遇到线上服务器Full-GC怎么办/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          遇到线上服务器Full GC怎么办?
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/02/09/Markdown基本语法/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Markdown基本语法</div>
+    <a href="/2019/02/14/ReflectionUtils详解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ReflectionUtils详解</div>
       <i class="icon-circle-right"></i>
     </a>
   
