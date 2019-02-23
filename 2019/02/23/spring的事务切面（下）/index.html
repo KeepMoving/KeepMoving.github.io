@@ -11,16 +11,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>遇到线上服务器Full GC怎么办? | 互联网实践者</title>
+  <title>spring的事务切面（下） | 互联网实践者</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="遇到线上服务器Full GC怎么办?">
-<meta property="og:url" content="http://yoursite.com/2019/02/11/遇到线上服务器Full-GC怎么办/index.html">
+  <meta name="description" content="事务处理拦截器的配置和创建过程建立事务处理对象的时序图Spring为声明式事务处理的实现所作的一些准备工作：包括为AOP配置基础设施，这些基础设施包括设置拦截器TransactionInterceptor、通知器DefaultPointcutAdvisor或TransactionAttributeSourceAdvisor。同时，在TransactionProxyFactoryBean的实现中，还">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring的事务切面（下）">
+<meta property="og:url" content="http://yoursite.com/2019/02/23/spring的事务切面（下）/index.html">
 <meta property="og:site_name" content="互联网实践者">
+<meta property="og:description" content="事务处理拦截器的配置和创建过程建立事务处理对象的时序图Spring为声明式事务处理的实现所作的一些准备工作：包括为AOP配置基础设施，这些基础设施包括设置拦截器TransactionInterceptor、通知器DefaultPointcutAdvisor或TransactionAttributeSourceAdvisor。同时，在TransactionProxyFactoryBean的实现中，还">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-11T06:16:01.190Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190223142633255.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190223142641306.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190223142650206.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190223142654842.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190223142700364.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190223142705197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-02-23T06:30:27.701Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="遇到线上服务器Full GC怎么办?">
+<meta name="twitter:title" content="spring的事务切面（下）">
+<meta name="twitter:description" content="事务处理拦截器的配置和创建过程建立事务处理对象的时序图Spring为声明式事务处理的实现所作的一些准备工作：包括为AOP配置基础设施，这些基础设施包括设置拦截器TransactionInterceptor、通知器DefaultPointcutAdvisor或TransactionAttributeSourceAdvisor。同时，在TransactionProxyFactoryBean的实现中，还">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190223142633255.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="互联网实践者" type="application/atom+xml">
   
@@ -160,27 +170,28 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-遇到线上服务器Full-GC怎么办" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-spring的事务切面（下）" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      遇到线上服务器Full GC怎么办?
+      spring的事务切面（下）
     </h1>
   
 
         
-        <a href="/2019/02/11/遇到线上服务器Full-GC怎么办/" class="archive-article-date">
-  	<time datetime="2019-02-11T06:16:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-11</time>
+        <a href="/2019/02/23/spring的事务切面（下）/" class="archive-article-date">
+  	<time datetime="2019-02-23T06:29:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>事务处理拦截器的配置和创建过程<br><img src="https://img-blog.csdnimg.cn/20190223142633255.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>建立事务处理对象的时序图<br>Spring为声明式事务处理的实现所作的一些准备工作：包括为AOP配置基础设施，这些基础设施包括设置拦截器TransactionInterceptor、通知器DefaultPointcutAdvisor或TransactionAttributeSourceAdvisor。同时，在TransactionProxyFactoryBean的实现中，还可以看到注入进来的PlatformTransactionManager和事务处理属性TransactionAttribute等。<br><img src="https://img-blog.csdnimg.cn/20190223142641306.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这个拦截器TransactionInterceptor通过AOP发挥作用，通过这个拦截器的实现，Spring封装了事务处理实现。<br>依赖注入的PlatformTransactionManager。<br>通过依赖注入的事务属性以Properties的形式出现，把从BeanDefinition中读到的事务管理的属性信息注入到TransactionInteceptor中。<br><img src="https://img-blog.csdnimg.cn/20190223142650206.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这里创建Spring Aop对事务的Advisor，如果pointcut不为null，则使用默认的通知器,并为通知器配置事务处理拦截器。如果没有配置pointcut，使用TransactionAttributeSourceAdvisor作为通知器，并为通知器设置TransactionInterceptor作为拦截器。<br><img src="https://img-blog.csdnimg.cn/20190223142654842.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>TransactionProxyFactoryBean的继承关系<br>从对createMainInterceptor方法的调用分析中可以看到，这个createMainInterceptor方法在IOC容器完成Bean的依赖注入时，通过initializeBean方法被调用。具体调用过程如下图.<br><img src="https://img-blog.csdnimg.cn/20190223142700364.png" alt="在这里插入图片描述"><br>createMainInterceptor方法的调用关系<br>TransactionProxyFactoryBean通过继承AbstractSingletonProxyFactoryBean，使用afterPropertiesSet()方法，在方法中使用ProxyFactory完成AOP的基本功能.<br><img src="https://img-blog.csdnimg.cn/20190223142705197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
       
 
       
@@ -259,7 +270,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/11/遇到线上服务器Full-GC怎么办/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/23/spring的事务切面（下）/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -273,18 +284,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/02/11/JAVA垃圾回收相关专题的总结/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JAVA垃圾回收相关专题的总结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/02/09/记一次线上异常的排查和定位/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">记一次线上异常的排查和定位</div>
+    <a href="/2019/02/23/spring的事务切面（中）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spring的事务切面（中）</div>
       <i class="icon-circle-right"></i>
     </a>
   

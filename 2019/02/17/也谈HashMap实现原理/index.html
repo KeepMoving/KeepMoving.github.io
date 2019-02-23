@@ -21,7 +21,7 @@
 <meta property="og:description" content="HashMap在互联网应用中是一个老生常谈的话题。从redis等各类缓存到spring内部BeanDefinition的存储，都能看到HashMap的身影。可见hashMap这个数据结构的重要性。最近也在重看HashMap的结构，记录一下，希望能有一些启发。 不同版本的JDK,HashMap的实现略有不同，以下是JDK1.8版本的HashMap。用intelliJ打开HashMap源码，打开Str">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/img/hashmap.jpg">
-<meta property="og:updated_time" content="2019-02-17T08:58:55.086Z">
+<meta property="og:updated_time" content="2019-02-17T10:57:00.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="也谈HashMap实现原理">
 <meta name="twitter:description" content="HashMap在互联网应用中是一个老生常谈的话题。从redis等各类缓存到spring内部BeanDefinition的存储，都能看到HashMap的身影。可见hashMap这个数据结构的重要性。最近也在重看HashMap的结构，记录一下，希望能有一些启发。 不同版本的JDK,HashMap的实现略有不同，以下是JDK1.8版本的HashMap。用intelliJ打开HashMap源码，打开Str">
@@ -286,9 +286,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/02/23/spring的事务切面（上）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          spring的事务切面（上）
+        
+      </div>
+    </a>
   
-    <a href="/2019/02/14/ReflectionUtils详解/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ReflectionUtils详解</div>
+  
+    <a href="/2019/02/11/yilia主题的hexo如何集成gitalk评论插件/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">yilia主题的hexo如何集成gitalk评论插件</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -433,15 +442,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人博客</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人博客</a>
               </li>
             
             <div class="clearfix"></div>
