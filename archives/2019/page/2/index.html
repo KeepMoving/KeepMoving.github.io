@@ -11,21 +11,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>自己动手搭建kafka环境及源码阅读环境 | 互联网实践者</title>
+  <title>Archives: 2019 | 互联网实践者</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="从kafka官网上选择一个版本官网地址:http://kafka.apache.org/downloads  下载kafka运行包 curl -L -O https://archive.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz 解压 tar zxvf kafka_2.11-0.9.0.1.tgz 进入config/server.pro">
-<meta property="og:type" content="article">
-<meta property="og:title" content="自己动手搭建kafka环境及源码阅读环境">
-<meta property="og:url" content="http://yoursite.com/2019/02/24/自己动手搭建kafka及源码阅读环境/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="互联网实践者">
+<meta property="og:url" content="http://yoursite.com/archives/2019/page/2/index.html">
 <meta property="og:site_name" content="互联网实践者">
-<meta property="og:description" content="从kafka官网上选择一个版本官网地址:http://kafka.apache.org/downloads  下载kafka运行包 curl -L -O https://archive.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz 解压 tar zxvf kafka_2.11-0.9.0.1.tgz 进入config/server.pro">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019022414515438.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-02-24T06:59:53.691Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己动手搭建kafka环境及源码阅读环境">
-<meta name="twitter:description" content="从kafka官网上选择一个版本官网地址:http://kafka.apache.org/downloads  下载kafka运行包 curl -L -O https://archive.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz 解压 tar zxvf kafka_2.11-0.9.0.1.tgz 进入config/server.pro">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2019022414515438.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70">
+<meta name="twitter:title" content="互联网实践者">
   
     <link rel="alternative" href="/atom.xml" title="互联网实践者" type="application/atom+xml">
   
@@ -165,190 +159,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-自己动手搭建kafka及源码阅读环境" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      自己动手搭建kafka环境及源码阅读环境
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/02/09/Markdown基本语法/" class="archive-article-date">
+  	<time datetime="2019-02-09T10:32:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-09</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/02/09/Markdown基本语法/">Markdown基本语法</a>
     </h1>
   
 
-        
-        <a href="/2019/02/24/自己动手搭建kafka及源码阅读环境/" class="archive-article-date">
-  	<time datetime="2019-02-24T06:55:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>从kafka官网上选择一个版本<br>官网地址:<a href="http://kafka.apache.org/downloads" target="_blank" rel="noopener">http://kafka.apache.org/downloads</a></p>
-<ol>
-<li>下载kafka运行包<br> curl -L -O <a href="https://archive.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz" target="_blank" rel="noopener">https://archive.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz</a></li>
-<li>解压 tar zxvf kafka_2.11-0.9.0.1.tgz</li>
-<li>进入config/server.properties，主要配置三个参数：broker.id、log.dir、zookeeper.connect</li>
-<li>启动kafka，执行bin/kafka-server-start.sh config/server.properties &amp;<br> 如果报以下错误<br><img src="https://img-blog.csdnimg.cn/2019022414515438.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 是因为jdk版本不兼容，要求jdk版本在1.7以上</li>
-</ol>
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">个人博客</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
-      
+          
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/24/自己动手搭建kafka及源码阅读环境/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/02/27/定位springboot启动异常/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          定位springboot启动异常
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/02/23/spring的事务切面（下）/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">spring的事务切面（下）</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/2019/">&laquo; Prev</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span>
+    </nav>
   
-
-  
-
-  
-
-
-
-<div class="gitalk">
-    <div id="gitalk-container"></div>
-    <script src="/lib/md5/md5.min.js"></script>
-    <script type="text/javascript">
-        const gitalk = new Gitalk({
-            clientID: '2454f220c0723f0c48cc',
-            clientSecret: '831a8d6118358334d7b7a24bb5b790695b6d346b',
-            repo: 'KeepMoving.github.io',
-            owner: 'KeepMoving',
-            admin: 'KeepMoving',
-            id: md5(location.pathname),  // Ensure uniqueness and length less than 50
-            distractionFreeMode: false  // Facebook-like distraction free mode
-        })
-        gitalk.render('gitalk-container')
-    </script>
-</div>
 
 
           </div>
@@ -371,8 +239,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
