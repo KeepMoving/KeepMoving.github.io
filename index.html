@@ -181,12 +181,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近在springboot中集成kafka，然后启动的时候抛出异常<br><img src="https://img-blog.csdnimg.cn/20190227213817429.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>该如何定位问题？基本思路是用远程debug（也可以在本地启动）+ Java Exception Breakpoints<br>上图中，抛出了TypeNotPresentExceptionProxy的异常，把断点打到TypeNotPresentExceptionProxy的构造函数，可以截获到如下信息：<br><img src="https://img-blog.csdnimg.cn/20190228115730150.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>看的出来是因为PropertyPlaceholderAutoConfiguration这个类的缺失。知道了异常的原因，下一步就是定位在哪里抛出异常，通过Java Exception Breakpoints。<br>在java的debug视图中，添加Java Exception Breakpoints，指定具体异常是ArrayStoreException,如图:<br><img src="https://img-blog.csdnimg.cn/20190228135435163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>然后启动springboot工程，等抛出ArrayStoreException异常前，就会定位到具体的代码，如下图<br><img src="https://img-blog.csdnimg.cn/20190228140039253.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>从异常信息可以看到发生异常的类是KafkaBinderConfiguration<br><img src="https://img-blog.csdnimg.cn/20190228140325123.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以看到KafkaBinderConfiguration引用的是springboot1.x版本的PropertyPlaceholderAutoConfiguration，包路径是<br>org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration，而我们项目用的springboot是2.x，这个类是在org.springframework.boot.autoconfigure.context下面。因为springboot在升级2.x版本后，改动了一些包路径，所以导致启动异常</p>
-
+        <p>最近在springboot中集成kafka，然后启动的时候抛出异常<br><img src="https://img-blog.csdnimg.cn/20190227213817429.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW92ZmlnaHQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>该如何定位问题？基本思路是用远程debug（也可以在本地启动）+ Java Exception Breakpoints<br>
+        
+          <a class="article-more-a" href="/2019/02/27/定位springboot启动异常/#more">more >></a>
+        
       
 
       
-    </div>
+    </p></div>
     <div class="article-info article-info-index">
       
       
