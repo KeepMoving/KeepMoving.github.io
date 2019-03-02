@@ -11,25 +11,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>定位springboot启动异常 | 互联网实践者</title>
+  <title>图片显示问题 | 互联网实践者</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近在springboot中集成kafka，然后启动的时候抛出异常该如何定位问题？基本思路是用远程debug（也可以在本地启动）+ Java Exception Breakpoints">
-<meta property="og:type" content="article">
-<meta property="og:title" content="定位springboot启动异常">
-<meta property="og:url" content="http://yoursite.com/2019/02/27/定位springboot启动异常/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="图片显示问题">
+<meta property="og:url" content="http://yoursite.com/2019/03/02/图片显示问题/index.html">
 <meta property="og:site_name" content="互联网实践者">
-<meta property="og:description" content="最近在springboot中集成kafka，然后启动的时候抛出异常该如何定位问题？基本思路是用远程debug（也可以在本地启动）+ Java Exception Breakpoints">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/02/27/定位springboot启动异常/20190227213817429.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/27/定位springboot启动异常/20190228115730150.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/27/定位springboot启动异常/20190228135435163.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/27/定位springboot启动异常/20190228140039253.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/27/定位springboot启动异常/20190228140325123.png">
-<meta property="og:updated_time" content="2019-03-02T12:31:44.318Z">
+<meta property="og:updated_time" content="2019-03-02T12:25:46.470Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="定位springboot启动异常">
-<meta name="twitter:description" content="最近在springboot中集成kafka，然后启动的时候抛出异常该如何定位问题？基本思路是用远程debug（也可以在本地启动）+ Java Exception Breakpoints">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/27/定位springboot启动异常/20190227213817429.png">
+<meta name="twitter:title" content="图片显示问题">
   
     <link rel="alternative" href="/atom.xml" title="互联网实践者" type="application/atom+xml">
   
@@ -169,28 +160,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-定位springboot启动异常" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-图片显示问题" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      定位springboot启动异常
+      图片显示问题
     </h1>
   
 
         
-        <a href="/2019/02/27/定位springboot启动异常/" class="archive-article-date">
-  	<time datetime="2019-02-27T13:40:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-27</time>
+        <a href="/2019/03/02/图片显示问题/" class="archive-article-date">
+  	<time datetime="2019-03-02T12:25:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近在springboot中集成kafka，然后启动的时候抛出异常<br><img src="/2019/02/27/定位springboot启动异常/20190227213817429.png" alt="在这里插入图片描述" title="图片的title"><br>该如何定位问题？基本思路是用远程debug（也可以在本地启动）+ Java Exception Breakpoints<br><a id="more"></a><br>上图中，抛出了TypeNotPresentExceptionProxy的异常，把断点打到TypeNotPresentExceptionProxy的构造函数，可以截获到如下信息：<br><img src="/2019/02/27/定位springboot启动异常/20190228115730150.png" alt="在这里插入图片描述" title="图片的title"><br>看的出来是因为PropertyPlaceholderAutoConfiguration这个类的缺失。知道了异常的原因，下一步就是定位在哪里抛出异常，通过Java Exception Breakpoints。<br>在java的debug视图中，添加Java Exception Breakpoints，指定具体异常是ArrayStoreException,如图:<br><img src="/2019/02/27/定位springboot启动异常/20190228135435163.png" alt="在这里插入图片描述" title="图片的title"><br>然后启动springboot工程，等抛出ArrayStoreException异常前，就会定位到具体的代码，如下图<br><img src="/2019/02/27/定位springboot启动异常/20190228140039253.png" alt="在这里插入图片描述" title="图片的title"><br>从异常信息可以看到发生异常的类是KafkaBinderConfiguration<br><img src="/2019/02/27/定位springboot启动异常/20190228140325123.png" alt="在这里插入图片描述" title="图片的title"><br>可以看到KafkaBinderConfiguration引用的是springboot1.x版本的PropertyPlaceholderAutoConfiguration，包路径是<br>org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration，而我们项目用的springboot是2.x，这个类是在org.springframework.boot.autoconfigure.context下面。因为springboot在升级2.x版本后，改动了一些包路径，所以导致启动异常</p>
-
+        
       
 
       
@@ -269,7 +259,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/27/定位springboot启动异常/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/02/图片显示问题/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -283,18 +273,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/03/02/图片显示问题/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          图片显示问题
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/02/24/自己动手搭建kafka及源码阅读环境/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">自己动手搭建kafka及源码阅读环境</div>
+    <a href="/2019/02/27/定位springboot启动异常/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">定位springboot启动异常</div>
       <i class="icon-circle-right"></i>
     </a>
   

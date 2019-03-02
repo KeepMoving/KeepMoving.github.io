@@ -21,12 +21,12 @@
 <meta property="og:site_name" content="互联网实践者">
 <meta property="og:description" content="gitalk是一个利用Github API,基于Github issue和Preact开发的评论插件，使用github账号登录,支持markdown语法,和hexo集成也比较简单 阅读这篇文章的朋友注意了，本文是基于yilia主题的hexo，如果是其他主题，可能配置会有一些差异 第一、首先需要在github上新建一个OAuth Apps，方法是在右上角头像下的settings-&amp;gt;develo">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/img/OAuthApps.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/11/yilia主题的hexo如何集成gitalk评论插件/img/OAuthApps.png">
 <meta property="og:updated_time" content="2019-02-11T11:15:06.382Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yilia主题的hexo如何集成gitalk评论插件">
 <meta name="twitter:description" content="gitalk是一个利用Github API,基于Github issue和Preact开发的评论插件，使用github账号登录,支持markdown语法,和hexo集成也比较简单 阅读这篇文章的朋友注意了，本文是基于yilia主题的hexo，如果是其他主题，可能配置会有一些差异 第一、首先需要在github上新建一个OAuth Apps，方法是在右上角头像下的settings-&amp;gt;develo">
-<meta name="twitter:image" content="http://yoursite.com/img/OAuthApps.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/11/yilia主题的hexo如何集成gitalk评论插件/img/OAuthApps.png">
   
     <link rel="alternative" href="/atom.xml" title="互联网实践者" type="application/atom+xml">
   
@@ -188,7 +188,7 @@
       
         <p>gitalk是一个利用Github API,基于Github issue和Preact开发的评论插件，使用github账号登录,支持markdown语法,和hexo集成也比较简单</p>
 <p>阅读这篇文章的朋友注意了，本文是基于yilia主题的hexo，如果是其他主题，可能配置会有一些差异</p>
-<p>第一、首先需要在github上新建一个OAuth Apps，方法是在右上角头像下的settings-&gt;developer settings新建<br><img src="/img/OAuthApps.png" alt="OAuthApps" title="OAuthApps"></p>
+<p>第一、首先需要在github上新建一个OAuth Apps，方法是在右上角头像下的settings-&gt;developer settings新建<br><img src="/2019/02/11/yilia主题的hexo如何集成gitalk评论插件/img/OAuthApps.png" alt="OAuthApps" title="OAuthApps"></p>
 <p>第二、在hexo安装目录的\themes\yilia\layout_partial\post文件夹中新建gitalk.ejs,代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;gitalk&quot;&gt;</span><br><span class="line">    &lt;div id=&quot;gitalk-container&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script src=&quot;/lib/md5/md5.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        const gitalk = new Gitalk(&#123;</span><br><span class="line">            clientID: &apos;&lt;%=theme.gitalk.client_id%&gt;&apos;,</span><br><span class="line">            clientSecret: &apos;&lt;%=theme.gitalk.client_secret%&gt;&apos;,</span><br><span class="line">            repo: &apos;&lt;%=theme.gitalk.repo%&gt;&apos;,</span><br><span class="line">            owner: &apos;&lt;%=theme.gitalk.owner%&gt;&apos;,</span><br><span class="line">            admin: &apos;&lt;%=theme.gitalk.admin%&gt;&apos;,</span><br><span class="line">            id: md5(location.pathname),  // Ensure uniqueness and length less than 50</span><br><span class="line">            distractionFreeMode: false  // Facebook-like distraction free mode</span><br><span class="line">        &#125;)</span><br><span class="line">        gitalk.render(&apos;gitalk-container&apos;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
 <p>其中clientID和clientSecret是上一步注册OAuth Apps后得到的key和secret<br>repo是存放评论的仓库名，owner和admin是你github的登录名<br>注意这里id有一个md5的函数(这是一个坑，后面会说明)，需要引入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;/lib/md5/md5.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
 <p>这个md5的js可以从github上搜索下载到，存放路径是主题source文件夹下，例如hexo\themes\yilia\source\lib</p>
