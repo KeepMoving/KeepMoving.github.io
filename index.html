@@ -161,70 +161,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-图片显示问题" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/02/图片显示问题/">图片显示问题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/02/图片显示问题/" class="archive-article-date">
-  	<time datetime="2019-03-02T12:25:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/02/图片显示问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
     <article id="post-定位springboot启动异常" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -317,8 +253,8 @@
 <li>下载kafka运行包<br> curl -L -O <a href="https://archive.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz" target="_blank" rel="noopener">https://archive.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz</a></li>
 <li>解压 tar zxvf kafka_2.11-0.9.0.1.tgz</li>
 <li>进入config/server.properties，主要配置三个参数：broker.id、log.dir、zookeeper.connect</li>
-<li>启动kafka，执行bin/kafka-server-start.sh config/server.properties &amp;<br> 如果报以下错误<br><img src="https://img-blog.csdnimg.cn/2019022414515438.png" alt="在这里插入图片描述"><br> 是因为jdk版本不兼容，要求jdk版本在1.7以上<br> 可以在bin/kafka-run-class.sh中指定jdk版本，如图<br><img src="https://img-blog.csdnimg.cn/20190225111423244.png" alt="在这里插入图片描述"></li>
-<li>进入kafka目录，执行bin/kafka-server-start.sh config/server.properties &amp;<br>如果启动报如下错误，是因为config/server.properties中的broker.id重复，重新指定一个即可<br><img src="https://img-blog.csdnimg.cn/20190225112304644.png" alt="在这里插入图片描述"></li>
+<li>启动kafka，执行bin/kafka-server-start.sh config/server.properties &amp;<br> 如果报以下错误<br><img src="/2019/02/24/自己动手搭建kafka及源码阅读环境/2019022414515438.png" alt="在这里插入图片描述"><br> 是因为jdk版本不兼容，要求jdk版本在1.7以上<br> 可以在bin/kafka-run-class.sh中指定jdk版本，如图<br><img src="/2019/02/24/自己动手搭建kafka及源码阅读环境/20190225111423244.png" alt="在这里插入图片描述"></li>
+<li>进入kafka目录，执行bin/kafka-server-start.sh config/server.properties &amp;<br>如果启动报如下错误，是因为config/server.properties中的broker.id重复，重新指定一个即可<br><img src="/2019/02/24/自己动手搭建kafka及源码阅读环境/20190225112304644.png" alt="在这里插入图片描述"></li>
 </ol>
 
       
@@ -384,7 +320,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>事务处理拦截器的配置和创建过程<br><img src="https://img-blog.csdnimg.cn/20190223142633255.png" alt="在这里插入图片描述"><br>建立事务处理对象的时序图<br></p>
+        <p>事务处理拦截器的配置和创建过程<br><img src="/2019/02/23/spring的事务切面（下）/20190223142633255.png" alt="在这里插入图片描述"><br>建立事务处理对象的时序图<br></p>
         
           <a class="article-more-a" href="/2019/02/23/spring的事务切面（下）/#more">more >></a>
         
@@ -519,7 +455,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>一个问题<br><img src="https://img-blog.csdnimg.cn/20190223110833437.png" alt="在这里插入图片描述"><br>在插入操作的事务最后抛出Exception异常，能否插入成功？<br>Spring事务处理的设计概览<br><img src="https://img-blog.csdnimg.cn/20190223110845857.png" alt="在这里插入图片描述"></p>
+        <p>一个问题<br><img src="/2019/02/23/spring的事务切面（上）/20190223110833437.png" alt="在这里插入图片描述"><br>在插入操作的事务最后抛出Exception异常，能否插入成功？<br>Spring事务处理的设计概览<br><img src="/2019/02/23/spring的事务切面（上）/20190223110845857.png" alt="在这里插入图片描述"></p>
 <p>Spring的事务处理模板中的类层次接口<br>       真正处理事务的是TransactionInterceptor，PlatformTransactionManager,AbstractionTransactionManager以及DataSourceTransactionManager，其他的类用来读取配置、加载通知以及实现织入。<br>事务处理拦截器的设计与实现<br>TransactionInterceptor类继承自MethodInterceptor，所以调用该类是从其invoke方法开始的。这个invoke()方法是Proxy代理对象的回调方法，在调用Proxy对象的代理方法时触发这个回调。在事务处理拦截器TransactionInterceptor中，invoke方法的实现如下图。可以看到，其过程时，首先获得调用方法的事务处理配置；在得到事务处理配置之后，会取得配置的PlatformTransactionManger，由这个事务处理器来实现事务的创建、提交、回滚操作。PlatformTransactionManger事务处理器是在Ioc容器中配置的，比如大家已经很熟悉的DataSourceTransactionManger和HibernateTransactionManager。有了这一系列的具体事务处理器的配置，在Spring事务处理模块的统一管理下，由这些具体的事务处理器来完成事务的创建、提交、回滚等底层的事务操作。<br></p>
         
           <a class="article-more-a" href="/2019/02/23/spring的事务切面（上）/#more">more >></a>
@@ -824,6 +760,88 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/02/11/遇到线上服务器Full-GC怎么办/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
+    <article id="post-记一次线上异常的排查和定位" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/09/记一次线上异常的排查和定位/">记一次线上异常的排查和定位</a>
+    </h1>
+  
+
+        
+        <a href="/2019/02/09/记一次线上异常的排查和定位/" class="archive-article-date">
+  	<time datetime="2019-02-09T12:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>某段时间，线上服务不时会爆出dwr数据异常。<br>初步断定是后端接口返回异常所致。</p>
+<p>由于当时我们的服务已经接入ELK，所以第一时间登录kibana后台，按照lucene语法搜索<br>（Tag:”study_online”） AND (message:”exception”)，定位到服务器的异常</p>
+<p>异常信息(由于当时的异常日志已经被冲掉了，这是我从网上摘录的)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalStateException: Timed out waiting to add Cmd: 1 Opaque: 1147840 Key: com.stubhub.user.business.entity.UserSession|63C21A07311389A1EC361D834BF46E72 Cas: 0 Exp: 7200 Flags: 1 Data Length: 1748(max wait=10000ms) </span><br><span class="line">at net.spy.memcached.protocol.TCPMemcachedNodeImpl.addOp(TCPMemcachedNodeImpl.java:362) </span><br><span class="line">at net.spy.memcached.MemcachedConnection.addOperation(MemcachedConnection.java:1267) </span><br><span class="line">at com.couchbase.client.CouchbaseConnection.addOperation(CouchbaseConnection.java:277) </span><br><span class="line">at net.spy.memcached.MemcachedConnection.enqueueOperation(MemcachedConnection.java:1185) </span><br><span class="line">at net.spy.memcached.MemcachedClient.asyncStore(MemcachedClient.java:328) </span><br><span class="line">at net.spy.memcached.MemcachedClient.set(MemcachedClient.java:929) </span><br><span class="line">at com.stubhub.common.cache.store.couchbase.CouchbaseStore.put(CouchbaseStore.java:148) </span><br><span class="line">at com.stubhub.common.cache.store.CompositeCacheStore.put(CompositeCacheStore.java:69) </span><br><span class="line">at com.stubhub.common.session.impl.UserSessionCacheManagerImpl.putCrossModuleValue(UserSessionCacheManagerImpl.java:48) </span><br><span class="line">at com.stubhub.user.business.manager.impl.UserSessionCacheMgrImpl.putUserSessionToStore(UserSessionCacheMgrImpl.java:269) </span><br><span class="line">at com.stubhub.user.business.manager.impl.UserSessionCacheMgrImpl.createUserSession(UserSessionCacheMgrImpl.java:806) </span><br><span class="line">at sun.reflect.GeneratedMethodAccessor1305.invoke(Unknown Source) </span><br><span class="line">at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)</span><br></pre></td></tr></table></figure></p>
+<p>从日志中判断是因为memcached超时抛出的异常。<br>首先查看工程的memcached设置，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;memcachedClient&quot; class=&quot;com.xxx.xxx.cache.impl.KeyPrefixSupportedMemcachedClientFactory&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;servers&quot; value=&quot;$&#123;memcached_address_list&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;namespace&quot; value=&quot;study_&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;protocol&quot; value=&quot;BINARY&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;transcoder&quot;&gt;</span><br><span class="line">		&lt;bean class=&quot;net.spy.memcached.transcoders.SerializingTranscoder&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;compressionThreshold&quot; value=&quot;16384&quot; /&gt;</span><br><span class="line">		&lt;/bean&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;maxReconnectDelay&quot; value=&quot;60&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;opTimeout&quot; value=&quot;200&quot;/&gt;</span><br><span class="line">	&lt;property name=&quot;opQueueMaxBlockTime&quot; value=&quot;400&quot;/&gt;</span><br><span class="line">	&lt;property name=&quot;timeoutExceptionThreshold&quot; value=&quot;20&quot;/&gt;</span><br><span class="line">	&lt;property name=&quot;hashAlg&quot;&gt;</span><br><span class="line">		&lt;value type=&quot;net.spy.memcached.DefaultHashAlgorithm&quot;&gt;KETAMA_HASH&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;locatorType&quot;&gt;</span><br><span class="line">           &lt;value type=&quot;net.spy.memcached.ConnectionFactoryBuilder.Locator&quot;&gt;CONSISTENT&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;failureMode&quot;&gt;</span><br><span class="line">           &lt;value type=&quot;net.spy.memcached.FailureMode&quot;&gt;Redistribute&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;useNagleAlgorithm&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到超时时间opTimeout设置的是200毫秒，而opQueueMaxBlockTime是400毫秒<br>opTimeout是操作超时时间，opQueueMaxBlockTime是指操作的最大阻塞时间。<br>那究竟是哪个时间超时导致的呢？<br>可以通过下载memcacheClient源码，搜索“Timed out waiting to add”定位到如下源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * (non-Javadoc)</span><br><span class="line"> *</span><br><span class="line"> * @see net.spy.memcached.MemcachedNode#addOp(net.spy.memcached.ops.Operation)</span><br><span class="line"> */</span><br><span class="line">public final void addOp(Operation op) &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    if (!authLatch.await(1, TimeUnit.SECONDS)) &#123;</span><br><span class="line">      op.cancel();</span><br><span class="line">      getLogger().warn(&quot;Operation canceled because authentication &quot;</span><br><span class="line">              + &quot;or reconnection and authentication has &quot;</span><br><span class="line">              + &quot;taken more than one second to complete.&quot;);</span><br><span class="line">      getLogger().debug(&quot;Canceled operation %s&quot;, op.toString());</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (!inputQueue.offer(op, opQueueMaxBlockTime, TimeUnit.MILLISECONDS)) &#123;</span><br><span class="line">      throw new IllegalStateException(&quot;Timed out waiting to add &quot; + op</span><br><span class="line">          + &quot;(max wait=&quot; + opQueueMaxBlockTime + &quot;ms)&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; catch (InterruptedException e) &#123;</span><br><span class="line">    // Restore the interrupted status</span><br><span class="line">    Thread.currentThread().interrupt();</span><br><span class="line">    throw new IllegalStateException(&quot;Interrupted while waiting to add &quot; + op);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从源码中可以知晓，原因是inputQueue.offer没有正常返回导致的，超过了opQueueMaxBlockTime的时间限制</p>
+<p>知道了原因，下面就开始思考怎么解决吧</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">debug</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/02/09/记一次线上异常的排查和定位/">展开全文 >></a>
         </p>
       
 

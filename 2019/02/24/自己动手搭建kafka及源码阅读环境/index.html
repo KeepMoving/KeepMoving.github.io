@@ -20,14 +20,14 @@
 <meta property="og:site_name" content="互联网实践者">
 <meta property="og:description" content="从kafka官网上选择一个版本官网地址:http://kafka.apache.org/downloads  下载kafka运行包 curl -L -O https://archive.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz 解压 tar zxvf kafka_2.11-0.9.0.1.tgz 进入config/server.pro">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019022414515438.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190225111423244.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190225112304644.png">
-<meta property="og:updated_time" content="2019-03-02T12:04:27.728Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/24/自己动手搭建kafka及源码阅读环境/2019022414515438.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/24/自己动手搭建kafka及源码阅读环境/20190225111423244.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/24/自己动手搭建kafka及源码阅读环境/20190225112304644.png">
+<meta property="og:updated_time" content="2019-03-02T12:49:11.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己动手搭建kafka及源码阅读环境">
 <meta name="twitter:description" content="从kafka官网上选择一个版本官网地址:http://kafka.apache.org/downloads  下载kafka运行包 curl -L -O https://archive.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz 解压 tar zxvf kafka_2.11-0.9.0.1.tgz 进入config/server.pro">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2019022414515438.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/24/自己动手搭建kafka及源码阅读环境/2019022414515438.png">
   
     <link rel="alternative" href="/atom.xml" title="互联网实践者" type="application/atom+xml">
   
@@ -192,8 +192,8 @@
 <li>下载kafka运行包<br> curl -L -O <a href="https://archive.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz" target="_blank" rel="noopener">https://archive.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz</a></li>
 <li>解压 tar zxvf kafka_2.11-0.9.0.1.tgz</li>
 <li>进入config/server.properties，主要配置三个参数：broker.id、log.dir、zookeeper.connect</li>
-<li>启动kafka，执行bin/kafka-server-start.sh config/server.properties &amp;<br> 如果报以下错误<br><img src="https://img-blog.csdnimg.cn/2019022414515438.png" alt="在这里插入图片描述"><br> 是因为jdk版本不兼容，要求jdk版本在1.7以上<br> 可以在bin/kafka-run-class.sh中指定jdk版本，如图<br><img src="https://img-blog.csdnimg.cn/20190225111423244.png" alt="在这里插入图片描述"></li>
-<li>进入kafka目录，执行bin/kafka-server-start.sh config/server.properties &amp;<br>如果启动报如下错误，是因为config/server.properties中的broker.id重复，重新指定一个即可<br><img src="https://img-blog.csdnimg.cn/20190225112304644.png" alt="在这里插入图片描述"></li>
+<li>启动kafka，执行bin/kafka-server-start.sh config/server.properties &amp;<br> 如果报以下错误<br><img src="/2019/02/24/自己动手搭建kafka及源码阅读环境/2019022414515438.png" alt="在这里插入图片描述"><br> 是因为jdk版本不兼容，要求jdk版本在1.7以上<br> 可以在bin/kafka-run-class.sh中指定jdk版本，如图<br><img src="/2019/02/24/自己动手搭建kafka及源码阅读环境/20190225111423244.png" alt="在这里插入图片描述"></li>
+<li>进入kafka目录，执行bin/kafka-server-start.sh config/server.properties &amp;<br>如果启动报如下错误，是因为config/server.properties中的broker.id重复，重新指定一个即可<br><img src="/2019/02/24/自己动手搭建kafka及源码阅读环境/20190225112304644.png" alt="在这里插入图片描述"></li>
 </ol>
 
       
