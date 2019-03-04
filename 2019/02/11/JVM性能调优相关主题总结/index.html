@@ -11,16 +11,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>JAVA垃圾回收相关专题的总结 | 互联网实践者</title>
+  <title>JVM性能调优相关主题总结 | 互联网实践者</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="JAVA垃圾回收相关专题的总结">
-<meta property="og:url" content="http://yoursite.com/2019/02/11/JAVA垃圾回收相关专题的总结/index.html">
+  <meta name="description" content="JVM基本 所有线程共享的内存数据区：方法区，堆。 线程私有：虚拟机栈，本地方法栈，程序计数器。 存放于栈中的东西如下： 每个线程包含一个栈区，栈中只保存基础数据类型的对象和自定义对象的引用（不是对象）。对象都存放在堆区中。 每个栈中的数据（基础数据类型和对象引用）都是私有的，其他栈不能访问 方法的形式参数，方法调用后从栈空间回收 引用对象的地址，引用完后，栈空间地址立即被回收，堆空间等GC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM性能调优相关主题总结">
+<meta property="og:url" content="http://yoursite.com/2019/02/11/JVM性能调优相关主题总结/index.html">
 <meta property="og:site_name" content="互联网实践者">
+<meta property="og:description" content="JVM基本 所有线程共享的内存数据区：方法区，堆。 线程私有：虚拟机栈，本地方法栈，程序计数器。 存放于栈中的东西如下： 每个线程包含一个栈区，栈中只保存基础数据类型的对象和自定义对象的引用（不是对象）。对象都存放在堆区中。 每个栈中的数据（基础数据类型和对象引用）都是私有的，其他栈不能访问 方法的形式参数，方法调用后从栈空间回收 引用对象的地址，引用完后，栈空间地址立即被回收，堆空间等GC">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-11T06:18:39.847Z">
+<meta property="og:updated_time" content="2019-03-04T15:33:44.302Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JAVA垃圾回收相关专题的总结">
+<meta name="twitter:title" content="JVM性能调优相关主题总结">
+<meta name="twitter:description" content="JVM基本 所有线程共享的内存数据区：方法区，堆。 线程私有：虚拟机栈，本地方法栈，程序计数器。 存放于栈中的东西如下： 每个线程包含一个栈区，栈中只保存基础数据类型的对象和自定义对象的引用（不是对象）。对象都存放在堆区中。 每个栈中的数据（基础数据类型和对象引用）都是私有的，其他栈不能访问 方法的形式参数，方法调用后从栈空间回收 引用对象的地址，引用完后，栈空间地址立即被回收，堆空间等GC">
   
     <link rel="alternative" href="/atom.xml" title="互联网实践者" type="application/atom+xml">
   
@@ -160,19 +163,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JAVA垃圾回收相关专题的总结" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-JVM性能调优相关主题总结" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JAVA垃圾回收相关专题的总结
+      JVM性能调优相关主题总结
     </h1>
   
 
         
-        <a href="/2019/02/11/JAVA垃圾回收相关专题的总结/" class="archive-article-date">
+        <a href="/2019/02/11/JVM性能调优相关主题总结/" class="archive-article-date">
   	<time datetime="2019-02-11T06:18:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-11</time>
 </a>
         
@@ -180,7 +183,36 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h4 id="JVM基本"><a href="#JVM基本" class="headerlink" title="JVM基本"></a>JVM基本</h4><ol>
+<li>所有线程共享的内存数据区：方法区，堆。<br> 线程私有：虚拟机栈，本地方法栈，程序计数器。</li>
+<li>存放于栈中的东西如下：<ol>
+<li>每个线程包含一个栈区，栈中只保存基础数据类型的对象和自定义对象的引用（不是对象）。对象都存放在堆区中。</li>
+<li>每个栈中的数据（基础数据类型和对象引用）都是私有的，其他栈不能访问</li>
+<li>方法的形式参数，方法调用后从栈空间回收</li>
+<li>引用对象的地址，引用完后，栈空间地址立即被回收，堆空间等GC</li>
+</ol>
+</li>
+<li>存放在堆中的东西如下：<ol>
+<li>存储的全部都是对象，每个对象包含一个与之对应的class信息.</li>
+</ol>
+</li>
+</ol>
+<p>每创建一个线程就会对应创建一个Java栈，所以Java栈也是线程私有的内存区域。<br>压入栈帧==用来存储方法数据和部分过程结果的数据结构，主线程对应一个栈帧（存储临时变量和参数）<br>JDK1.7及以前的JDK版本，Java类信息、常量池、静态变量都存储在Perm里<br>JDK1.8对JVM架构的改造，将类元数据放在本地内存中，另外，将常量池和静态变量放到Java堆里。HotSpot VM将会为类的元数据明确分配和释放本地内存。</p>
+<h4 id="垃圾回收器总结"><a href="#垃圾回收器总结" class="headerlink" title="垃圾回收器总结"></a>垃圾回收器总结</h4><ol>
+<li>Serial收集器：可能产生较大停顿，只使用一个线程去回收。新生代、老年代使用串行回收。新生代复制算法，老年代标记-压缩。-XX：UserSerialGC串行收集器。</li>
+<li>ParNew收集器：其实就是Serial收集器的多线程版本。新生代并行，老年代串行；新生代复制算法，老年代标记-压缩。<br> -XX:UserParNewGC 使用ParNew收集器<br> -XX:ParallelGCThreads 限制线程数量</li>
+<li>Parallel收集器：Parallel Scavenge收集器类似ParNew收集器，Parallel收集器更关注系统的吞吐量。可以通过参数打开自适应调节策略，动态调整这些参数以提供最合适的停顿时间或最大的吞吐量；也可以通过参数控制GC的时间不大于多少毫秒或者比例。新生代复制，老年代标记-压缩。<br> -XX：+UseParallelGC 使用parallel收集器+老年代串行</li>
+<li>Parallel Old收集器：是Parallel Scavenge收集器的老年代版本，使用多线程和“标记-整理”算法<br> -XX:+UseParallelOldGC 使用Parallel收集器+老年代并行。</li>
+<li>CMS收集器：是一种以获取最短回收停顿时间为目标的收集器。基于“标记-清除”算法实现的<ol>
+<li>初始标记  -&gt; stop the world </li>
+<li>并发标记</li>
+<li>重新标记 -&gt; stop the world</li>
+<li>并发清除<br>初始标记仅仅只是标记一下GC Roots能直接关联对象，速度很快，并发标记就是进行GC Roots Tracing的过程，而重新标记阶段则是为了修正并发标记期间，因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，这个阶段的停顿时间一般会比初始标记阶段稍长一些，但远比并发标记的时间短。<br>在耗时最长的并发标记和并发清除过程中，收集器线程都可以与用户线程一起工作。<br>CMS是老年代的收集器（新生代用ParNew）<br>优点：并发手机、低停顿<br>缺点：产生大量碎片，并发阶段会降低吞吐量<br>参数控制：<br>-XX:+UseConcMarkSweepGC 启用CMS收集器<br>-XX:+UseCmsCompactAtFullCollection   Full GC后，进行一次碎片整理，独占的，停顿时间变长<br>-XX:+CMSFullGCsBeforeCompaction 设置进行几次full gc后，进行一次碎片整理<br>-XX: ParallelCMSThreads设定CMS的多线程数量<br>-XX:+CMSInitiatingOccupancyFraction=80 CMS垃圾收集器，当老年代达到80%时，触发CMS垃圾回收。</li>
+</ol>
+</li>
+<li>G1收集器<br> 新生代和老年代混合排列。</li>
+</ol>
+
       
 
       
@@ -259,7 +291,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/11/JAVA垃圾回收相关专题的总结/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/11/JVM性能调优相关主题总结/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -433,11 +465,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">debug</a>
+                <a href="javascript:void(0)" class="js-tag color3">博客</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">博客</a>
+                <a href="javascript:void(0)" class="js-tag color1">debug</a>
               </li>
             
             <div class="clearfix"></div>
