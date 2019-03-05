@@ -304,6 +304,83 @@
 
 
   
+    <article id="post-TestNg框架源码解析" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/01/TestNg框架源码解析/">TestNg框架源码解析</a>
+    </h1>
+  
+
+        
+        <a href="/2019/01/01/TestNg框架源码解析/" class="archive-article-date">
+  	<time datetime="2019-01-01T04:08:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>TestNG是一个测试框架，其灵感来自JUnit和NUnit，但引入了一些新的功能，使其功能更强大，使用更方便。<br>TestNG是一个开源自动化测试框架;TestNG表示下一代(Next Generation的首字母)。 TestNG类似于JUnit(特别是JUnit 4)，但它不是JUnit框架的扩展。它的灵感来源于JUnit。它的目的是优于JUnit，尤其是在用于测试集成多类时。TestNG消除了大部分的旧框架的限制，使开发人员能够编写更加灵活和强大的测试。 因为它在很大程度上借鉴了Java注解(JDK5.0引入的)来定义测试，它也可以显示如何使用这个新功能在真实的Java语言生产环境中。</p>
+<h5 id="TestNG的特点"><a href="#TestNG的特点" class="headerlink" title="TestNG的特点"></a>TestNG的特点</h5><p>l  注解<br>l  TestNG使用Java和面向对象的功能<br>l  支持综合类测试(例如，默认情况下，不用创建一个新的测试每个测试方法的类的实例)<br>l  独立的编译时测试代码和运行时配置/数据信息<br>l  灵活的运行时配置<br>l  主要介绍“测试组”。当编译测试，只要要求TestNG运行所有的“前端”的测试，或“快”，“慢”，“数据库”等<br>l  支持依赖测试方法，并行测试，负载测试，局部故障<br>l  灵活的插件API<br>l  支持多线程测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.testng&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;testng&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;6.8&lt;/version&gt;</span><br><span class="line">    &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>运行示例<br><img src="/2019/01/01/TestNg框架源码解析/1.png" alt="在这里插入图片描述"><br>TestNg的对象注入<br>需要继承AbstractTestNGSpringContextTests类。<br><img src="/2019/01/01/TestNg框架源码解析/2.png" alt="在这里插入图片描述"><br>四个元注解 @Target,@Retention,@Documented,@Inherited，是专门用来定义注解的注解</p>
+<p>@Target 表示该注解用于什么地方，可能的值在枚举类 ElemenetType 中，包括：<br>         ElemenetType.CONSTRUCTOR———–构造器声明<br>         ElemenetType.FIELD ———————–域声明（包括 enum 实例）<br>         ElemenetType.LOCAL_VARIABLE——- 局部变量声明<br>         ElemenetType.METHOD ——————方法声明<br>         ElemenetType.PACKAGE ——————————— 包声明<br>         ElemenetType.PARAMETER ——————————参数声明<br>         ElemenetType.TYPE———————— 类，接口（包括注解类型）或enum声明<br>@Retention 表示在什么级别保存该注解信息。可选的参数值在枚举类型 RetentionPolicy 中：<br>    RetentionPolicy.SOURCE ——————注解将被编译器丢弃<br>    RetentionPolicy.CLASS ———– ———注解在class文件中可用，但会被VM丢弃<br>    RetentionPolicy.RUNTIME ——-将在运行期也保留注释，因此可以通过反射机制读取注解的信息。<br>@Documented 将此注解包含在 javadoc 中 ，它代表着此注解会被javadoc工具提取成文档。在doc文档中的内容会因为此注解的信息内容不同而不同。相当与@see,@param 等。<br>@Inherited 允许子类继承父类中的注解。</p>
+<p>TestNG的常用注解<br>@BeforeSuite<br>@AfterSuite<br>@BeforeTest<br>@AfterTest<br>@BeforeClass<br>@AfterClass<br>@BeforeMethod<br>@AfterMethod<br>@Test   alwaysRun控制是否每次都执行，dependsOnMethods是一种依赖，依赖某个方法执行，dataProvider可以指定测试数据。<br>自定义注解<br> <img src="/2019/01/01/TestNg框架源码解析/3.png" alt="在这里插入图片描述"><br>实现ITestListener接口<br><img src="/2019/01/01/TestNg框架源码解析/4.png" alt="在这里插入图片描述"><br>ITestListener接口定义<br><img src="/2019/01/01/TestNg框架源码解析/5.png" alt="在这里插入图片描述"><br>调用方式，加注解，通过@Listeners注解嵌入自己的处理逻辑<br><img src="/2019/01/01/TestNg框架源码解析/6.png" alt="在这里插入图片描述"><br>AbstractTestNGSpringContextTests的实现</p>
+<p>对集成了spring TestContext Framework与TestNG环境中的ApplicationContext测试支持的基础测试类进行了抽象。当你继承AbstractTestNGSpringContextTests时，就可以访问到下列protected的成员变量：applicationContext：使用它进行显式的bean查找或者测试整个上下文的状态。<br><img src="/2019/01/01/TestNg框架源码解析/7.png" alt="在这里插入图片描述"><br>ApplicationContextAware示例，调用方自身也要被容器实例化，才能拿到实例化的上下文ApplicationContext<br><img src="/2019/01/01/TestNg框架源码解析/8.png" alt="在这里插入图片描述"><br>WebApplicationContext也是对ApplicationContext的一种扩展<br><img src="/2019/01/01/TestNg框架源码解析/9.png" alt="在这里插入图片描述"><br>BeanFactory是根本。DefaultListableBeanFactory是基本实现。XmlBeanFactory是扩展。<br><img src="/2019/01/01/TestNg框架源码解析/10.png" alt="在这里插入图片描述"><br><img src="/2019/01/01/TestNg框架源码解析/11.png" alt="在这里插入图片描述"><br> 资源的定位，加载以及注册。</p>
+<p>AbstractTestNGSpringContextTests的初始化以及监听的注册<br><img src="/2019/01/01/TestNg框架源码解析/12.png" alt="在这里插入图片描述"><br>委派模式(Delegate)</p>
+<p>委派模式（Delegate）是面向对象设计模式中常用的一种模式。这种模式的原理为类B和类A是两个互相没有任何关系的类，B具有和A一模一样的方法和属性；并且调用B中的方法，属性就是调用A中同名的方法和属性。B好像就是一个受A授权委托的中介。第三方的代码不需要知道A的存在，也不需要和A发生直接的联系，通过B就可以直接使用A的功能，这样既能够使用到A的各种公能，又能够很好的将A保护起来了。一举两得，岂不很好！</p>
+<p>通过DependencyInjectionTestExecutionListener创建测试类对象<br><img src="/2019/01/01/TestNg框架源码解析/13.png" alt="在这里插入图片描述"><br><img src="/2019/01/01/TestNg框架源码解析/14.png" alt="在这里插入图片描述"><br>AbstractTransactionalTestNGSpringContextTests</p>
+<p>继承该类的测试用例在spring管理的事务中进行，测试完后对数据库的记录不会造成任何影响。你对数据库进行一些操作后，它会自动把数据库回滚，这样就保证了你的测试对于环境没有任何影响。</p>
+<h5 id="IHookable"><a href="#IHookable" class="headerlink" title="IHookable"></a>IHookable</h5><p>IHookable 监听器提供了类似与面向方面编程（AOP）中的Around Advice 的功能。它在测试方法执行前后提供了切入点，从而使用户能够在测试方法运行前后注入特定的功能。例如，用户可以在当前测试方法运行前加入特定的验证逻辑以决定测试方法是否运行或者跳过，甚至覆盖测试方法的逻辑。下面是 IHookable 监听器要求实现的方法签名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void run(IHookCallBack callBack, ITestResult testResult)</span><br></pre></td></tr></table></figure></p>
+<p>如要运行原始测试方法逻辑，需要调用 runTestMethod 方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">callBack.runTestMethod(testResult);</span><br></pre></td></tr></table></figure></p>
+<p>TestNg多线程示例<br>支持方法依赖调用<br><img src="/2019/01/01/TestNg框架源码解析/15.png" alt="在这里插入图片描述"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/01/01/TestNg框架源码解析/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
