@@ -13,12 +13,12 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>dubbo网络通信的编解码过程解析 | 互联网实践者</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="写这篇文章的初衷是最近被别人问到dubbo的通信协议及底层序列化过程，发现自己比较欠缺这一块的知识。所以这个周末，结合了dubbo源码和一些网络教程，总结了一下。 编码和解码首先做一下名词解释编码：序列化，它将对象序列化为字节数组，用于网络传输，数据持久化或者其他用途。解码：反序列化，把从网络，磁盘等读取的字节数还原成原始对象，以方便后续的业务逻辑操作。 dubbo在IP和TCP协议之上，又封装了">
+  <meta name="description" content="编码和解码首先做一下名词解释编码：序列化，它将对象序列化为字节数组，用于网络传输，数据持久化或者其他用途。解码：反序列化，把从网络，磁盘等读取的字节数还原成原始对象，以方便后续的业务逻辑操作。 dubbo在IP和TCP协议之上，又封装了自己的一层协议，为了解决TCP出现的粘包和拆包问题。解决粘包和拆包问题有几个公认的方法：  消息定长，例如固定为1000个字节 在包尾增加回车或空格等特殊字符作为切">
 <meta property="og:type" content="article">
 <meta property="og:title" content="dubbo网络通信的编解码过程解析">
 <meta property="og:url" content="http://yoursite.com/2019/03/24/dubbo网络通信的编解码过程解析/index.html">
 <meta property="og:site_name" content="互联网实践者">
-<meta property="og:description" content="写这篇文章的初衷是最近被别人问到dubbo的通信协议及底层序列化过程，发现自己比较欠缺这一块的知识。所以这个周末，结合了dubbo源码和一些网络教程，总结了一下。 编码和解码首先做一下名词解释编码：序列化，它将对象序列化为字节数组，用于网络传输，数据持久化或者其他用途。解码：反序列化，把从网络，磁盘等读取的字节数还原成原始对象，以方便后续的业务逻辑操作。 dubbo在IP和TCP协议之上，又封装了">
+<meta property="og:description" content="编码和解码首先做一下名词解释编码：序列化，它将对象序列化为字节数组，用于网络传输，数据持久化或者其他用途。解码：反序列化，把从网络，磁盘等读取的字节数还原成原始对象，以方便后续的业务逻辑操作。 dubbo在IP和TCP协议之上，又封装了自己的一层协议，为了解决TCP出现的粘包和拆包问题。解决粘包和拆包问题有几个公认的方法：  消息定长，例如固定为1000个字节 在包尾增加回车或空格等特殊字符作为切">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/03/24/dubbo网络通信的编解码过程解析/20190324165102803.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/24/dubbo网络通信的编解码过程解析/20190324165256825.png">
@@ -34,10 +34,10 @@
 <meta property="og:image" content="http://yoursite.com/2019/03/24/dubbo网络通信的编解码过程解析/20190324185351268.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/24/dubbo网络通信的编解码过程解析/20190324183521605.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/24/dubbo网络通信的编解码过程解析/20190324185756886.png">
-<meta property="og:updated_time" content="2019-03-24T11:10:52.266Z">
+<meta property="og:updated_time" content="2019-03-30T04:36:20.835Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="dubbo网络通信的编解码过程解析">
-<meta name="twitter:description" content="写这篇文章的初衷是最近被别人问到dubbo的通信协议及底层序列化过程，发现自己比较欠缺这一块的知识。所以这个周末，结合了dubbo源码和一些网络教程，总结了一下。 编码和解码首先做一下名词解释编码：序列化，它将对象序列化为字节数组，用于网络传输，数据持久化或者其他用途。解码：反序列化，把从网络，磁盘等读取的字节数还原成原始对象，以方便后续的业务逻辑操作。 dubbo在IP和TCP协议之上，又封装了">
+<meta name="twitter:description" content="编码和解码首先做一下名词解释编码：序列化，它将对象序列化为字节数组，用于网络传输，数据持久化或者其他用途。解码：反序列化，把从网络，磁盘等读取的字节数还原成原始对象，以方便后续的业务逻辑操作。 dubbo在IP和TCP协议之上，又封装了自己的一层协议，为了解决TCP出现的粘包和拆包问题。解决粘包和拆包问题有几个公认的方法：  消息定长，例如固定为1000个字节 在包尾增加回车或空格等特殊字符作为切">
 <meta name="twitter:image" content="http://yoursite.com/2019/03/24/dubbo网络通信的编解码过程解析/20190324165102803.png">
   
     <link rel="alternative" href="/atom.xml" title="互联网实践者" type="application/atom+xml">
@@ -198,8 +198,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>写这篇文章的初衷是最近被别人问到dubbo的通信协议及底层序列化过程，发现自己比较欠缺这一块的知识。所以这个周末，结合了dubbo源码和一些网络教程，总结了一下。</p>
-<h4 id="编码和解码"><a href="#编码和解码" class="headerlink" title="编码和解码"></a>编码和解码</h4><p>首先做一下名词解释<br>编码：序列化，它将对象序列化为字节数组，用于网络传输，数据持久化或者其他用途。<br>解码：反序列化，把从网络，磁盘等读取的字节数还原成原始对象，以方便后续的业务逻辑操作。</p>
+        <h4 id="编码和解码"><a href="#编码和解码" class="headerlink" title="编码和解码"></a>编码和解码</h4><p>首先做一下名词解释<br>编码：序列化，它将对象序列化为字节数组，用于网络传输，数据持久化或者其他用途。<br>解码：反序列化，把从网络，磁盘等读取的字节数还原成原始对象，以方便后续的业务逻辑操作。</p>
 <p>dubbo在IP和TCP协议之上，又封装了自己的一层协议，为了解决TCP出现的粘包和拆包问题。<br>解决粘包和拆包问题有几个公认的方法：</p>
 <ul>
 <li>消息定长，例如固定为1000个字节</li>
