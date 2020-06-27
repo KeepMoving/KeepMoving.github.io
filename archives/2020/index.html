@@ -11,11 +11,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>互联网实践者</title>
+  <title>Archives: 2020 | 互联网实践者</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="互联网实践者">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
 <meta property="og:site_name" content="互联网实践者">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -161,558 +161,101 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-yilia主题的hexo如何集成gitalk评论插件" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/06/27/whistle使用心得/" class="archive-article-date">
+  	<time datetime="2020-06-27T05:35:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-27</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/11/yilia主题的hexo如何集成gitalk评论插件/">yilia主题的hexo如何集成gitalk评论插件</a>
+      <a class="archive-article-title" href="/2020/06/27/whistle使用心得/">whistle使用心得</a>
     </h1>
   
 
-        
-        <a href="/2019/02/11/yilia主题的hexo如何集成gitalk评论插件/" class="archive-article-date">
-  	<time datetime="2019-02-11T08:20:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>gitalk是一个利用Github API,基于Github issue和Preact开发的评论插件，使用github账号登录,支持markdown语法,和hexo集成也比较简单</p>
-<p>阅读这篇文章的朋友注意了，本文是基于yilia主题的hexo，如果是其他主题，可能配置会有一些差异</p>
-<p>第一、首先需要在github上新建一个OAuth Apps，方法是在右上角头像下的settings-&gt;developer settings新建<br><img src="/2019/02/11/yilia主题的hexo如何集成gitalk评论插件/img/OAuthApps.png" alt="OAuthApps" title="OAuthApps"></p>
-<p>第二、在hexo安装目录的\themes\yilia\layout_partial\post文件夹中新建gitalk.ejs,代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;gitalk&quot;&gt;</span><br><span class="line">    &lt;div id=&quot;gitalk-container&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script src=&quot;/lib/md5/md5.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        const gitalk = new Gitalk(&#123;</span><br><span class="line">            clientID: &apos;&lt;%=theme.gitalk.client_id%&gt;&apos;,</span><br><span class="line">            clientSecret: &apos;&lt;%=theme.gitalk.client_secret%&gt;&apos;,</span><br><span class="line">            repo: &apos;&lt;%=theme.gitalk.repo%&gt;&apos;,</span><br><span class="line">            owner: &apos;&lt;%=theme.gitalk.owner%&gt;&apos;,</span><br><span class="line">            admin: &apos;&lt;%=theme.gitalk.admin%&gt;&apos;,</span><br><span class="line">            id: md5(location.pathname),  // Ensure uniqueness and length less than 50</span><br><span class="line">            distractionFreeMode: false  // Facebook-like distraction free mode</span><br><span class="line">        &#125;)</span><br><span class="line">        gitalk.render(&apos;gitalk-container&apos;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>其中clientID和clientSecret是上一步注册OAuth Apps后得到的key和secret<br>repo是存放评论的仓库名，owner和admin是你github的登录名<br>注意这里id有一个md5的函数(这是一个坑，后面会说明)，需要引入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;/lib/md5/md5.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<p>这个md5的js可以从github上搜索下载到，存放路径是主题source文件夹下，例如hexo\themes\yilia\source\lib</p>
-<p>第三、在hexo\themes\yilia\layout_partial\article.ejs文件后加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (!index &amp;&amp; theme.gitalk.enable &amp;&amp; post.comments)&#123; %&gt;</span><br><span class="line">&lt;%- partial(&apos;post/gitalk&apos;, &#123;</span><br><span class="line">    key: post.slug,</span><br><span class="line">    title: post.title,</span><br><span class="line">    url: config.url+url_for(post.path)</span><br><span class="line">  &#125;) %&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure></p>
-<p>其中post/gitalk是gitalk.ejs文件的相对路径</p>
-<p>最后、修改根目录下的_config.yml，在最后加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 注释所有畅言配置</span><br><span class="line"># 配置gitalk</span><br><span class="line">gitalk: </span><br><span class="line">  enable: true</span><br><span class="line">  client_id: 你申请的clientId</span><br><span class="line">  client_secret: 你申请的clientSecret</span><br><span class="line">  repo: 博客仓库的名称</span><br><span class="line">  owner: &apos;你github的用户名&apos;</span><br><span class="line">  admin: &apos;你github的用户名&apos;</span><br></pre></td></tr></table></figure></p>
-<p>最后的最后，重新发布hexo即可</p>
-<p>至于上面第二步为啥要加上md5函数，是因为用原始的id，会因为文章名称过长，导致gitalk初始化失败<br>登陆后显示Error: Validation Failed.<br>同时无法进行评论，评论框可以编辑</p>
-<p>网页错误信息如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Failed to load resource: the server responded with a status of 422 (Unprocessable Entity)</span><br><span class="line">gitalk.jsx:127 err: Error: Request failed with status code 422</span><br><span class="line">    at e.exports (https://unpkg.com/gitalk@1.2.2/dist/gitalk.min.js:1:34270)</span><br><span class="line">    at e.exports (https://unpkg.com/gitalk@1.2.2/dist/gitalk.min.js:19:1283)</span><br><span class="line">    at XMLHttpRequest.h.(anonymous function) (https://unpkg.com/gitalk@1.2.2/dist/gitalk.min.js:1:33269)</span><br></pre></td></tr></table></figure></p>
-<p>另外，如果根目录下_config.yml中的repo参数不对，打开评论页面后会报Error:Not Found错误</p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">博客</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/11/yilia主题的hexo如何集成gitalk评论插件/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
   
-    <article id="post-JVM性能调优相关主题总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
     
-      <header class="article-header">
-        
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/06/27/async-profiler-FlameGraph火焰图进行性能测试心得/" class="archive-article-date">
+  	<time datetime="2020-06-27T05:32:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-27</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/11/JVM性能调优相关主题总结/">JVM性能调优相关主题总结</a>
+      <a class="archive-article-title" href="/2020/06/27/async-profiler-FlameGraph火焰图进行性能测试心得/">async-profiler+FlameGraph火焰图进行性能测试心得</a>
     </h1>
   
 
-        
-        <a href="/2019/02/11/JVM性能调优相关主题总结/" class="archive-article-date">
-  	<time datetime="2019-02-11T06:18:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="JVM基本"><a href="#JVM基本" class="headerlink" title="JVM基本"></a>JVM基本</h4><ol>
-<li>所有线程共享的内存数据区：方法区，堆。<br> 线程私有：虚拟机栈，本地方法栈，程序计数器。</li>
-<li>存放于栈中的东西如下：<ol>
-<li>每个线程包含一个栈区，栈中只保存基础数据类型的对象和自定义对象的引用（不是对象）。对象都存放在堆区中。</li>
-<li>每个栈中的数据（基础数据类型和对象引用）都是私有的，其他栈不能访问</li>
-<li>方法的形式参数，方法调用后从栈空间回收</li>
-<li>引用对象的地址，引用完后，栈空间地址立即被回收，堆空间等GC</li>
-</ol>
-</li>
-<li>存放在堆中的东西如下：<ol>
-<li>存储的全部都是对象，每个对象包含一个与之对应的class信息.</li>
-</ol>
-</li>
-</ol>
-<p>每创建一个线程就会对应创建一个Java栈，所以Java栈也是线程私有的内存区域。<br>压入栈帧==用来存储方法数据和部分过程结果的数据结构，主线程对应一个栈帧（存储临时变量和参数）<br>JDK1.7及以前的JDK版本，Java类信息、常量池、静态变量都存储在Perm里<br>JDK1.8对JVM架构的改造，将类元数据放在本地内存中，另外，将常量池和静态变量放到Java堆里。HotSpot VM将会为类的元数据明确分配和释放本地内存。</p>
-<h4 id="垃圾回收器总结"><a href="#垃圾回收器总结" class="headerlink" title="垃圾回收器总结"></a>垃圾回收器总结</h4><ol>
-<li>Serial收集器：可能产生较大停顿，只使用一个线程去回收。新生代、老年代使用串行回收。新生代复制算法，老年代标记-压缩。-XX：UserSerialGC串行收集器。</li>
-<li>ParNew收集器：其实就是Serial收集器的多线程版本。新生代并行，老年代串行；新生代复制算法，老年代标记-压缩。<br> -XX:UserParNewGC 使用ParNew收集器<br> -XX:ParallelGCThreads 限制线程数量</li>
-<li>Parallel收集器：Parallel Scavenge收集器类似ParNew收集器，Parallel收集器更关注系统的吞吐量。可以通过参数打开自适应调节策略，动态调整这些参数以提供最合适的停顿时间或最大的吞吐量；也可以通过参数控制GC的时间不大于多少毫秒或者比例。新生代复制，老年代标记-压缩。<br> -XX：+UseParallelGC 使用parallel收集器+老年代串行</li>
-<li>Parallel Old收集器：是Parallel Scavenge收集器的老年代版本，使用多线程和“标记-整理”算法<br> -XX:+UseParallelOldGC 使用Parallel收集器+老年代并行。</li>
-<li>CMS收集器：是一种以获取最短回收停顿时间为目标的收集器。基于“标记-清除”算法实现的<ol>
-<li>初始标记  -&gt; stop the world </li>
-<li>并发标记</li>
-<li>重新标记 -&gt; stop the world</li>
-<li>并发清除<br>初始标记仅仅只是标记一下GC Roots能直接关联对象，速度很快，并发标记就是进行GC Roots Tracing的过程，而重新标记阶段则是为了修正并发标记期间，因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，这个阶段的停顿时间一般会比初始标记阶段稍长一些，但远比并发标记的时间短。<br>在耗时最长的并发标记和并发清除过程中，收集器线程都可以与用户线程一起工作。<br>CMS是老年代的收集器（新生代用ParNew）<br>优点：并发手机、低停顿<br>缺点：产生大量碎片，并发阶段会降低吞吐量<br>参数控制：<br>-XX:+UseConcMarkSweepGC 启用CMS收集器<br>-XX:+UseCmsCompactAtFullCollection   Full GC后，进行一次碎片整理，独占的，停顿时间变长<br>-XX:+CMSFullGCsBeforeCompaction 设置进行几次full gc后，进行一次碎片整理<br>-XX: ParallelCMSThreads设定CMS的多线程数量<br>-XX:+CMSInitiatingOccupancyFraction=80 CMS垃圾收集器，当老年代达到80%时，触发CMS垃圾回收。</li>
-</ol>
-</li>
-<li>G1收集器<br> 新生代和老年代混合排列。</li>
-</ol>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/11/JVM性能调优相关主题总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
   
-    <article id="post-遇到线上服务器Full-GC怎么办" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
     
-      <header class="article-header">
-        
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/06/27/注册systemv服务并限制资源/" class="archive-article-date">
+  	<time datetime="2020-06-27T05:31:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-27</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/11/遇到线上服务器Full-GC怎么办/">遇到线上服务器Full GC怎么办?</a>
+      <a class="archive-article-title" href="/2020/06/27/注册systemv服务并限制资源/">注册systemv服务并限制资源</a>
     </h1>
   
 
-        
-        <a href="/2019/02/11/遇到线上服务器Full-GC怎么办/" class="archive-article-date">
-  	<time datetime="2019-02-11T06:16:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
+        <div class="article-info info-on-right">
+          
+          
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/11/遇到线上服务器Full-GC怎么办/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
   
-    <article id="post-记一次线上异常的排查和定位" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/09/记一次线上异常的排查和定位/">记一次线上异常的排查和定位</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/09/记一次线上异常的排查和定位/" class="archive-article-date">
-  	<time datetime="2019-02-09T12:30:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>某段时间，线上服务不时会爆出dwr数据异常。<br>初步断定是后端接口返回异常所致。</p>
-<p>由于当时我们的服务已经接入ELK，所以第一时间登录kibana后台，按照lucene语法搜索<br>（Tag:”study_online”） AND (message:”exception”)，定位到服务器的异常</p>
-<p>异常信息(由于当时的异常日志已经被冲掉了，这是我从网上摘录的)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalStateException: Timed out waiting to add Cmd: 1 Opaque: 1147840 Key: com.stubhub.user.business.entity.UserSession|63C21A07311389A1EC361D834BF46E72 Cas: 0 Exp: 7200 Flags: 1 Data Length: 1748(max wait=10000ms) </span><br><span class="line">at net.spy.memcached.protocol.TCPMemcachedNodeImpl.addOp(TCPMemcachedNodeImpl.java:362) </span><br><span class="line">at net.spy.memcached.MemcachedConnection.addOperation(MemcachedConnection.java:1267) </span><br><span class="line">at com.couchbase.client.CouchbaseConnection.addOperation(CouchbaseConnection.java:277) </span><br><span class="line">at net.spy.memcached.MemcachedConnection.enqueueOperation(MemcachedConnection.java:1185) </span><br><span class="line">at net.spy.memcached.MemcachedClient.asyncStore(MemcachedClient.java:328) </span><br><span class="line">at net.spy.memcached.MemcachedClient.set(MemcachedClient.java:929) </span><br><span class="line">at com.stubhub.common.cache.store.couchbase.CouchbaseStore.put(CouchbaseStore.java:148) </span><br><span class="line">at com.stubhub.common.cache.store.CompositeCacheStore.put(CompositeCacheStore.java:69) </span><br><span class="line">at com.stubhub.common.session.impl.UserSessionCacheManagerImpl.putCrossModuleValue(UserSessionCacheManagerImpl.java:48) </span><br><span class="line">at com.stubhub.user.business.manager.impl.UserSessionCacheMgrImpl.putUserSessionToStore(UserSessionCacheMgrImpl.java:269) </span><br><span class="line">at com.stubhub.user.business.manager.impl.UserSessionCacheMgrImpl.createUserSession(UserSessionCacheMgrImpl.java:806) </span><br><span class="line">at sun.reflect.GeneratedMethodAccessor1305.invoke(Unknown Source) </span><br><span class="line">at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)</span><br></pre></td></tr></table></figure></p>
-<p>从日志中判断是因为memcached超时抛出的异常。<br>首先查看工程的memcached设置，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;memcachedClient&quot; class=&quot;com.xxx.xxx.cache.impl.KeyPrefixSupportedMemcachedClientFactory&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;servers&quot; value=&quot;$&#123;memcached_address_list&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;namespace&quot; value=&quot;study_&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;protocol&quot; value=&quot;BINARY&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;transcoder&quot;&gt;</span><br><span class="line">		&lt;bean class=&quot;net.spy.memcached.transcoders.SerializingTranscoder&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;compressionThreshold&quot; value=&quot;16384&quot; /&gt;</span><br><span class="line">		&lt;/bean&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;maxReconnectDelay&quot; value=&quot;60&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;opTimeout&quot; value=&quot;200&quot;/&gt;</span><br><span class="line">	&lt;property name=&quot;opQueueMaxBlockTime&quot; value=&quot;400&quot;/&gt;</span><br><span class="line">	&lt;property name=&quot;timeoutExceptionThreshold&quot; value=&quot;20&quot;/&gt;</span><br><span class="line">	&lt;property name=&quot;hashAlg&quot;&gt;</span><br><span class="line">		&lt;value type=&quot;net.spy.memcached.DefaultHashAlgorithm&quot;&gt;KETAMA_HASH&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;locatorType&quot;&gt;</span><br><span class="line">           &lt;value type=&quot;net.spy.memcached.ConnectionFactoryBuilder.Locator&quot;&gt;CONSISTENT&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;failureMode&quot;&gt;</span><br><span class="line">           &lt;value type=&quot;net.spy.memcached.FailureMode&quot;&gt;Redistribute&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;useNagleAlgorithm&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
-<p>可以看到超时时间opTimeout设置的是200毫秒，而opQueueMaxBlockTime是400毫秒<br>opTimeout是操作超时时间，opQueueMaxBlockTime是指操作的最大阻塞时间。<br>那究竟是哪个时间超时导致的呢？<br>可以通过下载memcacheClient源码，搜索“Timed out waiting to add”定位到如下源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * (non-Javadoc)</span><br><span class="line"> *</span><br><span class="line"> * @see net.spy.memcached.MemcachedNode#addOp(net.spy.memcached.ops.Operation)</span><br><span class="line"> */</span><br><span class="line">public final void addOp(Operation op) &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    if (!authLatch.await(1, TimeUnit.SECONDS)) &#123;</span><br><span class="line">      op.cancel();</span><br><span class="line">      getLogger().warn(&quot;Operation canceled because authentication &quot;</span><br><span class="line">              + &quot;or reconnection and authentication has &quot;</span><br><span class="line">              + &quot;taken more than one second to complete.&quot;);</span><br><span class="line">      getLogger().debug(&quot;Canceled operation %s&quot;, op.toString());</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (!inputQueue.offer(op, opQueueMaxBlockTime, TimeUnit.MILLISECONDS)) &#123;</span><br><span class="line">      throw new IllegalStateException(&quot;Timed out waiting to add &quot; + op</span><br><span class="line">          + &quot;(max wait=&quot; + opQueueMaxBlockTime + &quot;ms)&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; catch (InterruptedException e) &#123;</span><br><span class="line">    // Restore the interrupted status</span><br><span class="line">    Thread.currentThread().interrupt();</span><br><span class="line">    throw new IllegalStateException(&quot;Interrupted while waiting to add &quot; + op);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>从源码中可以知晓，原因是inputQueue.offer没有正常返回导致的，超过了opQueueMaxBlockTime的时间限制</p>
-<p>知道了原因，下面就开始思考怎么解决吧</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">debug</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/09/记一次线上异常的排查和定位/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-Markdown基本语法" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/09/Markdown基本语法/">Markdown基本语法</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/09/Markdown基本语法/" class="archive-article-date">
-  	<time datetime="2019-02-09T10:32:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一、标题"><a href="#一、标题" class="headerlink" title="一、标题"></a>一、标题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">语法</span><br><span class="line"># 这是一级标题</span><br><span class="line">## 这是二级标题</span><br><span class="line">### 这是三级标题</span><br><span class="line">#### 这是四级标题</span><br><span class="line">##### 这是五级标题</span><br><span class="line">###### 这是六级标题</span><br></pre></td></tr></table></figure>
-<p>示例</p>
-<h1 id="这是一级标题"><a href="#这是一级标题" class="headerlink" title="这是一级标题"></a>这是一级标题</h1><h2 id="这是二级标题"><a href="#这是二级标题" class="headerlink" title="这是二级标题"></a>这是二级标题</h2><h3 id="这是三级标题"><a href="#这是三级标题" class="headerlink" title="这是三级标题"></a>这是三级标题</h3><h4 id="这是四级标题"><a href="#这是四级标题" class="headerlink" title="这是四级标题"></a>这是四级标题</h4><h5 id="这是五级标题"><a href="#这是五级标题" class="headerlink" title="这是五级标题"></a>这是五级标题</h5><h6 id="这是六级标题"><a href="#这是六级标题" class="headerlink" title="这是六级标题"></a>这是六级标题</h6><h1 id="二、字体"><a href="#二、字体" class="headerlink" title="二、字体"></a>二、字体</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">语法</span><br><span class="line">**这是加粗的文字**</span><br><span class="line">*这是倾斜的文字*`</span><br><span class="line">***这是斜体加粗的文字***</span><br><span class="line">~~这是加删除线的文字~~</span><br></pre></td></tr></table></figure>
-<p>示例<br><strong>这是加粗的文字</strong><br><em>这是倾斜的文字</em>`<br><strong><em>这是斜体加粗的文字</em></strong><br><del>这是加删除线的文字</del></p>
-<h1 id="三、引用"><a href="#三、引用" class="headerlink" title="三、引用"></a>三、引用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">语法</span><br><span class="line">&gt;这是引用的内容</span><br><span class="line">&gt;&gt;这是引用的内容</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;这是引用的内容</span><br></pre></td></tr></table></figure>
-<p>示例</p>
-<blockquote>
-<p>这是引用的内容</p>
-<blockquote>
-<p>这是引用的内容</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>这是引用的内容</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<h1 id="四、分割线"><a href="#四、分割线" class="headerlink" title="四、分割线"></a>四、分割线</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">语法</span><br><span class="line">---</span><br><span class="line">----</span><br><span class="line">***</span><br><span class="line">*****</span><br></pre></td></tr></table></figure>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><hr>
-<hr>
-<hr>
-<h1 id="五、图片"><a href="#五、图片" class="headerlink" title="五、图片"></a>五、图片</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">语法：</span><br><span class="line">![图片alt](图片地址 &apos;&apos;图片title&apos;&apos;)</span><br><span class="line">图片alt就是显示在图片下面的文字，相当于对图片内容的解释。</span><br><span class="line">图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加</span><br></pre></td></tr></table></figure>
-<p>示例<br><img src="https://edu-image.nosdn.127.net/f78d34f57f1248c0acf83e2a9f71ee52.jpg" alt="显示在图片下面的文字" title="图片的title"></p>
-<h1 id="六、超链接"><a href="#六、超链接" class="headerlink" title="六、超链接"></a>六、超链接</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">语法：</span><br><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br><span class="line">title可加可不加</span><br></pre></td></tr></table></figure>
-<p>示例：<br><a href="http://jianshu.com" target="_blank" rel="noopener">简书</a><br><a href="http://baidu.com" target="_blank" rel="noopener">百度</a></p>
-<h1 id="七、列表"><a href="#七、列表" class="headerlink" title="七、列表"></a>七、列表</h1><ul>
-<li><p>无序列表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">语法：</span><br><span class="line">无序列表用 - + * 任何一种都可以</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>有序列表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">语法：</span><br><span class="line">数字加点</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>例如<br>1.列表内容<br>2.列表内容<br>3.列表内容</p>
-<ul>
-<li>列表嵌套</li>
-<li><p>一级无序列表内容</p>
-<ul>
-<li>二级无序列表内容</li>
-<li>二级无序列表内容</li>
-<li>二级无序列表内容</li>
-</ul>
-</li>
-<li><p>一级无序列表内容<br>  1.二级有序列表内容<br>  2.二级有序列表内容<br>  3.二级有序列表内容</p>
-</li>
-</ul>
-<p>1.一级有序列表内容</p>
-<ul>
-<li>二级无序列表内容</li>
-<li>二级无序列表内容</li>
-<li>二级无序列表内容</li>
-</ul>
-<p>2.一级有序列表内容<br>    1.二级有序列表内容<br>    2.二级有序列表内容<br>    3.二级有序列表内容</p>
-<h1 id="八、表格"><a href="#八、表格" class="headerlink" title="八、表格"></a>八、表格</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">语法：</span><br><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|---:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br><span class="line"></span><br><span class="line">第二行分割表头和内容。</span><br><span class="line">- 有一个就行，为了对齐，多加了几个</span><br><span class="line">文字默认居左</span><br><span class="line">-两边加：表示文字居中</span><br><span class="line">-右边加：表示文字居右</span><br><span class="line">注：原生的语法两边都要用 | 包起来。此处省略</span><br></pre></td></tr></table></figure>
-<p>示例：<br>表头|表头|表头<br>—|:–:|—:<br>内容|内容|内容<br>内容|内容|内容</p>
-<h1 id="九、代码"><a href="#九、代码" class="headerlink" title="九、代码"></a>九、代码</h1><p>语法：<br>单行代码：代码之间分别用一个反引号包起来<br><code>create table user;</code><br>代码块：代码之间分别用三个反引号包起来，且两边的反引号单独占一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">代码...</span><br><span class="line">代码...</span><br><span class="line">代码...</span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">个人博客</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/09/Markdown基本语法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-TestNg框架源码解析" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/01/TestNg框架源码解析/">TestNg框架源码解析</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/01/TestNg框架源码解析/" class="archive-article-date">
-  	<time datetime="2019-01-01T04:08:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>TestNG是一个测试框架，其灵感来自JUnit和NUnit，但引入了一些新的功能，使其功能更强大，使用更方便。<br>TestNG是一个开源自动化测试框架;TestNG表示下一代(Next Generation的首字母)。 TestNG类似于JUnit(特别是JUnit 4)，但它不是JUnit框架的扩展。它的灵感来源于JUnit。它的目的是优于JUnit，尤其是在用于测试集成多类时。TestNG消除了大部分的旧框架的限制，使开发人员能够编写更加灵活和强大的测试。 因为它在很大程度上借鉴了Java注解(JDK5.0引入的)来定义测试，它也可以显示如何使用这个新功能在真实的Java语言生产环境中。</p>
-<h5 id="TestNG的特点"><a href="#TestNG的特点" class="headerlink" title="TestNG的特点"></a>TestNG的特点</h5><p>l  注解<br>l  TestNG使用Java和面向对象的功能<br>l  支持综合类测试(例如，默认情况下，不用创建一个新的测试每个测试方法的类的实例)<br>l  独立的编译时测试代码和运行时配置/数据信息<br>l  灵活的运行时配置<br>l  主要介绍“测试组”。当编译测试，只要要求TestNG运行所有的“前端”的测试，或“快”，“慢”，“数据库”等<br>l  支持依赖测试方法，并行测试，负载测试，局部故障<br>l  灵活的插件API<br>l  支持多线程测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.testng&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;testng&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;6.8&lt;/version&gt;</span><br><span class="line">    &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
-<p>运行示例<br><img src="/2019/01/01/TestNg框架源码解析/1.png" alt="在这里插入图片描述"><br>TestNg的对象注入<br>需要继承AbstractTestNGSpringContextTests类。<br><img src="/2019/01/01/TestNg框架源码解析/2.png" alt="在这里插入图片描述"><br>四个元注解 @Target,@Retention,@Documented,@Inherited，是专门用来定义注解的注解</p>
-<p>@Target 表示该注解用于什么地方，可能的值在枚举类 ElemenetType 中，包括：<br>         ElemenetType.CONSTRUCTOR———–构造器声明<br>         ElemenetType.FIELD ———————–域声明（包括 enum 实例）<br>         ElemenetType.LOCAL_VARIABLE——- 局部变量声明<br>         ElemenetType.METHOD ——————方法声明<br>         ElemenetType.PACKAGE ——————————— 包声明<br>         ElemenetType.PARAMETER ——————————参数声明<br>         ElemenetType.TYPE———————— 类，接口（包括注解类型）或enum声明<br>@Retention 表示在什么级别保存该注解信息。可选的参数值在枚举类型 RetentionPolicy 中：<br>    RetentionPolicy.SOURCE ——————注解将被编译器丢弃<br>    RetentionPolicy.CLASS ———– ———注解在class文件中可用，但会被VM丢弃<br>    RetentionPolicy.RUNTIME ——-将在运行期也保留注释，因此可以通过反射机制读取注解的信息。<br>@Documented 将此注解包含在 javadoc 中 ，它代表着此注解会被javadoc工具提取成文档。在doc文档中的内容会因为此注解的信息内容不同而不同。相当与@see,@param 等。<br>@Inherited 允许子类继承父类中的注解。</p>
-<p>TestNG的常用注解<br>@BeforeSuite<br>@AfterSuite<br>@BeforeTest<br>@AfterTest<br>@BeforeClass<br>@AfterClass<br>@BeforeMethod<br>@AfterMethod<br>@Test   alwaysRun控制是否每次都执行，dependsOnMethods是一种依赖，依赖某个方法执行，dataProvider可以指定测试数据。<br>自定义注解<br> <img src="/2019/01/01/TestNg框架源码解析/3.png" alt="在这里插入图片描述"><br>实现ITestListener接口<br><img src="/2019/01/01/TestNg框架源码解析/4.png" alt="在这里插入图片描述"><br>ITestListener接口定义<br><img src="/2019/01/01/TestNg框架源码解析/5.png" alt="在这里插入图片描述"><br>调用方式，加注解，通过@Listeners注解嵌入自己的处理逻辑<br><img src="/2019/01/01/TestNg框架源码解析/6.png" alt="在这里插入图片描述"><br>AbstractTestNGSpringContextTests的实现</p>
-<p>对集成了spring TestContext Framework与TestNG环境中的ApplicationContext测试支持的基础测试类进行了抽象。当你继承AbstractTestNGSpringContextTests时，就可以访问到下列protected的成员变量：applicationContext：使用它进行显式的bean查找或者测试整个上下文的状态。<br><img src="/2019/01/01/TestNg框架源码解析/7.png" alt="在这里插入图片描述"><br>ApplicationContextAware示例，调用方自身也要被容器实例化，才能拿到实例化的上下文ApplicationContext<br><img src="/2019/01/01/TestNg框架源码解析/8.png" alt="在这里插入图片描述"><br>WebApplicationContext也是对ApplicationContext的一种扩展<br><img src="/2019/01/01/TestNg框架源码解析/9.png" alt="在这里插入图片描述"><br>BeanFactory是根本。DefaultListableBeanFactory是基本实现。XmlBeanFactory是扩展。<br><img src="/2019/01/01/TestNg框架源码解析/10.png" alt="在这里插入图片描述"><br><img src="/2019/01/01/TestNg框架源码解析/11.png" alt="在这里插入图片描述"><br> 资源的定位，加载以及注册。</p>
-<p>AbstractTestNGSpringContextTests的初始化以及监听的注册<br><img src="/2019/01/01/TestNg框架源码解析/12.png" alt="在这里插入图片描述"><br>委派模式(Delegate)</p>
-<p>委派模式（Delegate）是面向对象设计模式中常用的一种模式。这种模式的原理为类B和类A是两个互相没有任何关系的类，B具有和A一模一样的方法和属性；并且调用B中的方法，属性就是调用A中同名的方法和属性。B好像就是一个受A授权委托的中介。第三方的代码不需要知道A的存在，也不需要和A发生直接的联系，通过B就可以直接使用A的功能，这样既能够使用到A的各种公能，又能够很好的将A保护起来了。一举两得，岂不很好！</p>
-<p>通过DependencyInjectionTestExecutionListener创建测试类对象<br><img src="/2019/01/01/TestNg框架源码解析/13.png" alt="在这里插入图片描述"><br><img src="/2019/01/01/TestNg框架源码解析/14.png" alt="在这里插入图片描述"><br>AbstractTransactionalTestNGSpringContextTests</p>
-<p>继承该类的测试用例在spring管理的事务中进行，测试完后对数据库的记录不会造成任何影响。你对数据库进行一些操作后，它会自动把数据库回滚，这样就保证了你的测试对于环境没有任何影响。</p>
-<h5 id="IHookable"><a href="#IHookable" class="headerlink" title="IHookable"></a>IHookable</h5><p>IHookable 监听器提供了类似与面向方面编程（AOP）中的Around Advice 的功能。它在测试方法执行前后提供了切入点，从而使用户能够在测试方法运行前后注入特定的功能。例如，用户可以在当前测试方法运行前加入特定的验证逻辑以决定测试方法是否运行或者跳过，甚至覆盖测试方法的逻辑。下面是 IHookable 监听器要求实现的方法签名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void run(IHookCallBack callBack, ITestResult testResult)</span><br></pre></td></tr></table></figure></p>
-<p>如要运行原始测试方法逻辑，需要调用 runTestMethod 方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">callBack.runTestMethod(testResult);</span><br></pre></td></tr></table></figure></p>
-<p>TestNg多线程示例<br>支持方法依赖调用<br><img src="/2019/01/01/TestNg框架源码解析/15.png" alt="在这里插入图片描述"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/01/TestNg框架源码解析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
-  
 
 
           </div>
@@ -734,9 +277,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
-		isArchive: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
